@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiFlix · Cartelera</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles.css?v=5">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <header class="barra">
+        <h1 class="logo">MiFlix</h1>
+        <nav class="acciones-barra">
+            <button id="btn-login" class="btn btn-sec">Iniciar sesión</button>
+            <button id="btn-nuevo" class="btn" hidden>Agregar título</button>
+        </nav>
+    </header>
+
+    <section id="hero" class="hero" aria-live="polite">
+        <div class="hero-texto">
+            <h2 id="hero-titulo">Cargando cartelera…</h2>
+            <p id="hero-sinopsis"></p>
+        </div>
+        <img id="hero-poster" class="hero-poster" alt="" hidden>
+    </section>
+
+    <section class="buscador" aria-label="Buscador avanzado">
+        <form id="form-buscar" role="search" autocomplete="off">
+            <label class="sr-only" for="q">Buscar en la cartelera</label>
+            <input id="q" type="search" placeholder="Buscar por título, año, género o descripción">
+
+            <div class="filtros">
+                <div id="chips-tipo" class="chips" role="group" aria-label="Filtrar por tipo">
+                    <button type="button" class="chip activo" data-tipo="todos">Todos</button>
+                    <button type="button" class="chip" data-tipo="peliculas">Películas</button>
+                    <button type="button" class="chip" data-tipo="series">Series</button>
+                    <button type="button" class="chip" data-tipo="documentales">Documentales</button>
+                </div>
+
+                <label class="sr-only" for="filtro-genero">Filtrar por género</label>
+                <select id="filtro-genero">
+                    <option value="todos">Todos los géneros</option>
+                </select>
+
+                <label class="sr-only" for="filtro-orden">Ordenar por</label>
+                <select id="filtro-orden">
+                    <option value="normal">Orden original</option>
+                    <option value="titulo">Título (A-Z)</option>
+                    <option value="anio-desc">Año (más nuevo)</option>
+                    <option value="anio-asc">Año (más antiguo)</option>
+                </select>
+
+                <button type="button" id="btn-limpiar" class="btn btn-sec">Limpiar</button>
+            </div>
+        </form>
+        <p id="contador" class="contador" role="status"></p>
+    </section>
+
+    <main>
+        <section id="seccion-resultados" class="fila" aria-label="Resultados de la búsqueda" hidden>
+            <div id="resultados" class="grilla"></div>
+        </section>
+
+        <div id="filas"></div>
+
+        <section id="fila-ranking" class="fila" hidden>
+            <h3>Más vistas</h3>
+            <ol id="ranking" class="ranking"></ol>
+        </section>
+
+        <p id="mensaje" class="mensaje" role="status"></p>
+    </main>
+
+    <div id="modal" class="modal" hidden>
+        <div class="modal-caja" role="dialog" aria-modal="true" aria-labelledby="m-titulo">
+            <button id="m-cerrar" class="cerrar" aria-label="Cerrar">×</button>
+            <img id="m-img" alt="">
+            <div class="modal-info">
+                <h2 id="m-titulo"></h2>
+                <p class="meta"><span id="m-anio"></span> · <span id="m-genero"></span></p>
+                <div id="m-sinopsis"></div>
+                <div id="m-admin" class="acciones" hidden>
+                    <button id="m-editar" class="btn btn-sec">Editar</button>
+                    <button id="m-eliminar" class="btn btn-peligro">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="login" class="modal" hidden>
+        <form id="form-login" class="modal-caja form">
+            <button type="button" class="cerrar" data-cerrar="#login" aria-label="Cerrar">×</button>
+            <h2>Iniciar sesión</h2>
+            <label>Usuario <input id="l-user" required autocomplete="username"></label>
+            <label>Contraseña <input id="l-pass" type="password" required autocomplete="current-password"></label>
+            <button class="btn" type="submit">Entrar</button>
+        </form>
+    </div>
+
+    <div id="panel" class="modal" hidden>
+        <form id="form-cpt" class="modal-caja form">
+            <button type="button" class="cerrar" data-cerrar="#panel" aria-label="Cerrar">×</button>
+            <h2 id="f-encabezado">Nuevo título</h2>
+            <input type="hidden" id="f-id">
+            <label>Tipo <select id="f-cpt"></select></label>
+            <label>Título <input id="f-titulo" required></label>
+            <label>Descripción <textarea id="f-contenido" rows="3"></textarea></label>
+            <label>Año <input id="f-anio" type="number" min="1900" max="2100"></label>
+            <label>Género <input id="f-genero"></label>
+            <button class="btn" type="submit">Guardar</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="app.js?v=5"></script>
+</body>
+</html>
